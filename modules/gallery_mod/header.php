@@ -86,7 +86,7 @@ if (FN_IsAdmin() || ($config['photogroup'] != "" && FN_UserInGroup($_FN['user'],
 	// in your app create uploader as soon as the DOM is ready		
 	if(jQuery){
 	   jQuery(document).ready(function(){
-	    	loadUploader(;)
+	    	loadUploader();
 	    });      	
 	}
 	else{
