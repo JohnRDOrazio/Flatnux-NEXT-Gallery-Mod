@@ -1,0 +1,12 @@
+1.0.2
+* check file permissions and correct if necessary
+
+1.0.1
+* unificata la variabile di configurazione "use_lightbox" sia per jquery che per prototype
+* script "fileuploader.js" sarà caricato soltanto se si è amministratori della gallery
+* icona sul lightbox di jQuery che permette di scaricare le foto
+
+1.0.0
+* creata la galleria modificata per Flatnux NEXT che permette di scegliere tra il lightbox di prototype o il lightbox di jquery
+* aggiunge alla galleria predefinita di Flatnux NEXT una funzionalità di caricamento delle immagini che permette di caricare immagini multiple
+* è abilitata anche la funzione "drag-n-drop" per caricare immagini multiple
