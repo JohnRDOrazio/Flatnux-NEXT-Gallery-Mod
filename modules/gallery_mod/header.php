@@ -26,10 +26,8 @@ $use_lightbox=$config['use_lightbox'];
 
 $pathscript = "modules/gallery_mod";
 
-// Check file permissions and correct if necessary
-$perms = 0755;
-$file = $_FN["siteurl"].$pathscript."/fileuploader.php";
-if(fileperms($file) < $perms){ chmod($file,$perms); }
+// Make sure we have the correct file permissions
+chmod("modules/gallery_mod/fileuploader.php",0755);
 
 if($use_lightbox==1){
   $_FN['section_header_footer'] .= "
@@ -86,23 +84,36 @@ if (FN_IsAdmin() || ($config['photogroup'] != "" && FN_UserInGroup($_FN['user'],
   ?>
   <script type="text/javascript">        
 	// in your app create uploader as soon as the DOM is ready		
-	if(jQuery){	    $(document).ready(function(){	    	loadUploader(;)	    });      		}	else{
+	if(jQuery){
+	   jQuery(document).ready(function(){
+	    	loadUploader(;)
+	    });      	
+	}
+	else{
 		checkdomready(loadUploader);
 	}
 
-	function loadUploader(){	      var uploader = new qq.FileUploader({	          element: document.getElementById('imageuploadform'),	          action: '<?php echo $_FN["siteurl"] ?>modules/gallery_mod/fileuploader.php',	          debug: true,	          onAllComplete: function(){ window.location.reload(true); }	      });               			}
+
+	function loadUploader(){
+	      var uploader = new qq.FileUploader({
+	          element: document.getElementById('imageuploadform'),
+	          action: '<?php echo $_FN["siteurl"] ?>modules/gallery_mod/fileuploader.php',
+	          debug: true,
+	          onAllComplete: function(){ window.location.reload(true); }
+	      });               		
+	}
 	
 	function checkdomready(func){
 		func = func || function(){};
 		if(typeof func != 'function'){ func = function(){} }
 		var alreadyrunflag=0; //flag to indicate whether target function has already been run		
 		if (document.addEventListener)
-		  document.addEventListener("DOMContentLoaded", function(){alreadyrunflag=1; func();)}, false)
+		  document.addEventListener("DOMContentLoaded", function(){alreadyrunflag=1; func();}, false);
 		else if (document.all && !window.opera){
-		  document.write('<script type="text/javascript" id="contentloadtag" defer="defer" src="javascript:void(0)"><\/script>')
-		  var contentloadtag=document.getElementById("contentloadtag")
+		  document.write('<scr'+'ipt type="text/javascript" id="contentloadtag" defer="defer" src="javascript:void(0)"><\/script>');
+		  var contentloadtag=document.getElementById("contentloadtag");
 		  contentloadtag.onreadystatechange=function(){
-		    if (this.readyState=="complete"){ alreadyrunflag=1; func(); }
+		    if (this.readyState=='complete'){ alreadyrunflag=1; func(); }
 		  }
 		}
 		else if(/Safari/i.test(navigator.userAgent)){ //Test for Safari
@@ -111,9 +122,10 @@ if (FN_IsAdmin() || ($config['photogroup'] != "" && FN_UserInGroup($_FN['user'],
 				}, 10);
 		}
 		window.onload=function(){
-			setTimeout("if (!alreadyrunflag){func();}", 0)
+			setTimeout('if (!alreadyrunflag){func();}', 0)
 		}		
-	}  </script>
+	}
+  </script>
   <?php
 }
 ?>
